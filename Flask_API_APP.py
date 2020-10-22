@@ -1,5 +1,5 @@
 # 1. import Flask
-from flask import Flask
+from flask import Flask, jsonify
 
 # 2. Create an app, being sure to pass __name__
 app = Flask(__name__)
@@ -48,7 +48,7 @@ def about():
 
 
 
-# 4. Define what to do when a user hits the /about route
+# pending may need
 @app.route("/about")
 def about():
     print("Server received request for 'About' page...")
