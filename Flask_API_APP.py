@@ -400,12 +400,15 @@ def prcp_json():
     print("Server received request for 'About' page...")
     return jsonify(prcp_dict)
 
+station_dict = {'USC00519397':'WAIKIKI 717.2, HI US','USC00513117':'KANEOHE 838.1, HI US','USC00514830':'KUALOA RANCH HEADQUARTERS 886.9, HI US',
+'USC00517948':'PEARL CITY, HI US','USC00518838':'UPPER WAHIAWA 874.3, HI US','USC00519523':'WAIMANALO EXPERIMENTAL FARM, HI US',
+'USC00519281':'WAIHEE 837.5, HI US','USC00511918':'HONOLULU OBSERVATORY 702.2, HI US','USC00516128':'MANOA LYON ARBO 785.2, HI US'}
 
-# # Temperature route
-# @app.route("/about")
-# def about():
-#     print("Server received request for 'About' page...")
-#     return "Welcome to my 'About' page!"
+# station route
+@app.route("/api/v1.0/stations")
+def station():
+    print("Server received request for 'About' page...")
+    return jsonify(station_dict)
 
 
 # # Tmperature - date range route
