@@ -19,6 +19,35 @@ def home():
 
 
 
+# Percipitaion route
+@app.route("/about")
+def about():
+    print("Server received request for 'About' page...")
+    return "Welcome to my 'About' page!"
+
+
+# Stations route
+@app.route("/about")
+def about():
+    print("Server received request for 'About' page...")
+    return "Welcome to my 'About' page!"
+
+
+# Temperature route
+@app.route("/about")
+def about():
+    print("Server received request for 'About' page...")
+    return "Welcome to my 'About' page!"
+
+
+# Tmperature - date range route
+@app.route("/about")
+def about():
+    print("Server received request for 'About' page...")
+    return "Welcome to my 'About' page!"
+
+
+
 # 4. Define what to do when a user hits the /about route
 @app.route("/about")
 def about():
