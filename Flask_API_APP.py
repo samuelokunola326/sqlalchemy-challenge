@@ -83,7 +83,7 @@ def prcp_json():
     prcp_dict = prcp_df.set_index('date').T.to_dict('list')
 
     #Returning data on web page
-    print("Server received request for 'About' page...")
+    print("Server received request for 'Percipitation_json' page...")
     return jsonify(prcp_dict)
 
 
@@ -91,8 +91,24 @@ def prcp_json():
 # station route
 @app.route("/api/v1.0/stations")
 def station():
-    print("Server received request for 'About' page...")
-    return jsonify(station_dict)
+
+    # creating connection to sqllite engine
+    conn = engine.connect()
+
+    print("Server received request for 'Percipitation' page...")
+    # reading data into a data frame
+    sts_df = pd.read_sql('SELECT station, name FROM station',conn)
+
+    #closing connection
+    conn.close()
+
+    # creating dictionary by setting date to index and then transposing into a dictionary
+    sts_dict = sts_df.set_index('station').T.to_dict('list')
+
+    #Returning data on web page
+    print("Server received request for 'station_json' page...")
+    return jsonify(sts_dict)
+    
 
 tobs_dict = {'2016-08-23': [77.0],
  '2016-08-24': [77.0],
