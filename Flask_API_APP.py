@@ -1,8 +1,9 @@
 #importing dependencies
 import pandas as pd
+import sqlalchemy
 
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
+# from sqlalchemy.ext.automap import automap_base
+# from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
 # import Flask
@@ -12,15 +13,15 @@ from flask import Flask, jsonify
 ######################################################################
 engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
-#reflect database into new model
-Base = automap_base()
+# #reflect database into new model
+# Base = automap_base()
 
-#reflecting tables
-Base.prepare(engine,reflect=True)
+# #reflecting tables
+# Base.prepare(engine,reflect=True)
 
-#reflect the tables
-measurements = Base.classes.measurement
-stattion = Base.classes.station
+# #reflect the tables
+# measurements = Base.classes.measurement
+# stattion = Base.classes.station
 #######################################################################
 # Flask setup
 # ##################################################################### 
@@ -85,10 +86,7 @@ def prcp_json():
     print("Server received request for 'About' page...")
     return jsonify(prcp_dict)
 
-#Creating dict for stations
-station_dict = {'USC00519397':'WAIKIKI 717.2, HI US','USC00513117':'KANEOHE 838.1, HI US','USC00514830':'KUALOA RANCH HEADQUARTERS 886.9, HI US',
-'USC00517948':'PEARL CITY, HI US','USC00518838':'UPPER WAHIAWA 874.3, HI US','USC00519523':'WAIMANALO EXPERIMENTAL FARM, HI US',
-'USC00519281':'WAIHEE 837.5, HI US','USC00511918':'HONOLULU OBSERVATORY 702.2, HI US','USC00516128':'MANOA LYON ARBO 785.2, HI US'}
+
 
 # station route
 @app.route("/api/v1.0/stations")
