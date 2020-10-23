@@ -119,7 +119,7 @@ def tobs():
     # creating connection to sqllite engine
     conn = engine.connect()
 
-    print("Server received request for 'Percipitation' page...")
+    print("Server received request for Tempurature page...")
     # reading data into a data frame
     prcp_df = pd.read_sql('SELECT date, tobs FROM measurement WHERE date BETWEEN "2016-08-23" AND "2017-08-23"',conn)
 
@@ -130,15 +130,32 @@ def tobs():
     tobs_dict = prcp_df.set_index('date').T.to_dict('list')
 
     #Returning data on web page
-    print("Server received request for 'Tempurature' page...")
+    print("Server received request for Tempurature page...")
     return tobs_dict
 
 
 #  Temperature(json) route
 @app.route("/api/v1.0/tobs_jsonified")
 def station_json():
-    print("Server received request for 'About' page...")
+
+    # creating connection to sqllite engine
+    conn = engine.connect()
+
+    print("Server received request for Tempurature page...")
+    # reading data into a data frame
+    prcp_df = pd.read_sql('SELECT date, tobs FROM measurement WHERE date BETWEEN "2016-08-23" AND "2017-08-23"',conn)
+
+    #closing connection
+    conn.close()
+
+    # creating dictionary by setting date to index and then transposing into a dictionary
+    tobs_dict = prcp_df.set_index('date').T.to_dict('list')
+
+    #Returning data on web page
+    print("Server received request for Tempurature page...")
     return jsonify(tobs_dict)
+    
+    
 
 # # pending may need
 # @app.route("/about")
