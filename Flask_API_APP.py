@@ -189,18 +189,21 @@ def start_end_date(start, end):
 
     print("Server received request for Tempurature page...")
     # reading data into a data frame
-    tobs_df = pd.read_sql(f'SELECT date, AVG(tobs), MIN(tobs), MAX(tobs) FROM measurement GROUP BY date HAVING date BETWEEN {start} AND {end}',conn)
+    tobs_se_df = pd.read_sql(f'SELECT date, AVG(tobs), MIN(tobs), MAX(tobs) FROM measurement GROUP BY date HAVING date BETWEEN "{start}" AND "{end}"',conn)
 
     #closing connection
     conn.close()
 
     # creating dictionary by setting date to index and then transposing into a dictionary
-    tobs_ste_dict = tobs_df.set_index('date').T.to_dict('list')
+    tobs_se_dict = tobs_se_df.set_index('date').T.to_dict('list')
 
     #Returning data on web page
     print("Server received request for Tempurature page...")
 
-    return jsonify(tobs_ste_dict)
+    return jsonify(tobs_se_dict)
+
+
+
 
         # # pending may need
 @app.route("/api/v1.0/start/end/")
