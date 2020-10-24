@@ -13,15 +13,6 @@ from flask import Flask, jsonify
 ######################################################################
 engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
-# #reflect database into new model
-# Base = automap_base()
-
-# #reflecting tables
-# Base.prepare(engine,reflect=True)
-
-# #reflect the tables
-# measurements = Base.classes.measurement
-# stattion = Base.classes.station
 #######################################################################
 # Flask setup
 # ##################################################################### 
@@ -37,9 +28,15 @@ def home():
     return ("These are the routes availible<br>"
     
     "Home(Current)<br>"
-    "/api/v1.0/precipitation - Review Percipitation for the Year<br>"
+    "/api/v1.0/precipitation_Normal - Review Percipitation for the Year<br>"
+    "/api/v1.0/precipitation_jsonified - Review Percipitation(json form) for the Year<br>"
+    "/api/v1.0/stations - See Current stations<br>"
     "/api/v1.0/tobs - Review Temp for the Year<br>"
-    "/api/v1.0/<start> and /api/v1.0/<start>/<end> - Review Temp for a given date span<br>")
+    "/api/v1.0/tobs_jsonified - Review Temp(json form) for the Year<br>"
+    "/api/v1.0/start/<start> - Review Temp for a given date  and forward based on your input <br>"
+    "/api/v1.0/start/<start>/end/<end> - Review Temp for a given date range based on your input<br>"
+    
+    )
 
 
 
@@ -157,7 +154,7 @@ def station_json():
     
     
 
-# # pending may need
+# Tempurature based on start date (user input)
 @app.route("/api/v1.0/start/<start>")
 def start_date(start):
 
@@ -180,7 +177,7 @@ def start_date(start):
 
     return jsonify(tobs_st_dict)
 
-    # # pending may need
+    # Tempurature based on date range (user input)
 @app.route("/api/v1.0/start/<start>/end/<end>")
 def start_end_date(start, end):
 
@@ -201,32 +198,6 @@ def start_end_date(start, end):
     print("Server received request for Tempurature page...")
 
     return jsonify(tobs_se_dict)
-
-
-
-
-        # # pending may need
-@app.route("/api/v1.0/start/end/")
-def start_end_date_t():
-
-    # creating connection to engine
-    conn = engine.connect()
-
-    print("Server received request for Tempurature page...")
-    # reading data into a data frame
-    tobs_df = pd.read_sql(f'SELECT date, AVG(tobs), MIN(tobs), MAX(tobs) FROM measurement GROUP BY date HAVING date BETWEEN "2016-08-23" AND "2017-08-23"',conn)
-
-    #closing connection
-    conn.close()
-
-    # creating dictionary by setting date to index and then transposing into a dictionary
-    tobs_ste_dict = tobs_df.set_index('date').T.to_dict('list')
-
-    #Returning data on web page
-    print("Server received request for Tempurature page...")
-
-    return jsonify(tobs_ste_dict)
-    
 
 
 if __name__ == "__main__":
